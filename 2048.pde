@@ -58,4 +58,55 @@ Array.prototype.removeZeros = function(){
     }    
     return ar;
 };
+//Add together all the values in the array
+//[0,2,0,2] -> [0,0,0,4]
+var addrow=function(a){
+    a=a.removeZeros();
+    if(a.length>=1){
+        for(var i=1;i<a.length;i++){
+            if(a[i-1]===a[i]){
+                a[i]=a[i]+1;
+                a[i-1]=0;
+            }    
+        }
+        a=a.removeZeros();
+    }    
+    a.addZeros();
+    return a;
+};
 
+
+//Runs when the user releases a key
+void keyReleased(){
+    input[keyCode] = true;
+    
+    if(input[UP]){
+        for(var x=0;x<S;x++){
+            var row = [];
+            row=board[x];
+            row = addrow(row);
+            board[x]=row;
+        }        
+    }
+    if(input[LEFT]){
+        for(var y=0;y<S;y++){
+            var row = [];
+            for(var x=0;x<S;x++){
+                row[x]=board[x][y];
+            }
+            row = addrow(row);
+            for(var x=0;x<S;x++){
+                board[x][y]=row[x];
+            }
+        }        
+    }
+    
+    if(input[DOWN]){
+        for(var x=S-1;x>=0;x--){
+            var row = [];
+            row=board[x].reverse();
+            row = addrow(row);
+            board[x]=row.reverse();
+            
+        }        
+    }
