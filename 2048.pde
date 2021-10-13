@@ -110,3 +110,40 @@ void keyReleased(){
             
         }        
     }
+if(input[RIGHT]){
+        for(var y=S-1;y>=0;y--){
+            var row = [];
+            for(var x=0;x<S;x++){
+                row[x]=board[x][y];
+            }
+            row.reverse();
+            row = addrow(row);
+            row.reverse();
+            for(var x=0;x<S;x++){
+                board[x][y]=row[x];
+            }
+        }        
+    }
+    addPoint();
+    input[keyCode] = false;
+};
+
+draw = function() {
+    textSize(map(S,3,15,35,8));
+    
+    //Draws the board+tiles
+    for(var x=0;x<S;x++){
+        for(var y=0;y<S;y++){
+            
+            var X = map(x,0,S,0,400)+(200/S);
+            var Y = map(y,0,S,0,400)+(200/S);
+            
+            fill(map(board[x][y],1,nums.length,0,255), board[x][y]===0?0:155, 225);
+            stroke(map(board[x][y],1,nums.length,0,255), board[x][y]===0?0:155, 215);
+            rect(X,Y,(400/S)-10,(400/S)-10);
+            
+            fill(225);
+            text(board[x][y]!==0?nums[board[x][y]]:"",X,Y);
+        }    
+    }
+};
